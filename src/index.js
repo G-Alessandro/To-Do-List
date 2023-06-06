@@ -5,7 +5,7 @@ const body = document.getElementsByTagName('body')[0];
 const topBar = document.createElement('div');
 topBar.classList.add('top-bar');
 body.appendChild(topBar);
-topBar.innerText = 'TO DO LIST //';
+topBar.innerText = 'TO DO LIST';
 
 // Container
 // const container = document.createElement('div');
@@ -29,7 +29,7 @@ tasksTitle.innerText = 'Tasks';
 const addTaskBtn = document.createElement('button');
 addTaskBtn.classList.add('add-task-btn');
 tasksTitleContainer.appendChild(addTaskBtn);
-addTaskBtn.innerText = '+ Add Tasks';
+addTaskBtn.innerText = 'Add Tasks';
 
 const allTaskBtn = document.createElement('button');
 allTaskBtn.classList.add('home-btn');
@@ -58,7 +58,7 @@ projectsTitle.innerText = 'Projects';
 const addProjectBtn = document.createElement('button');
 addProjectBtn.classList.add('add-project-btn');
 projectTitleContainer.appendChild(addProjectBtn);
-addProjectBtn.innerText = '+ Add Project';
+addProjectBtn.innerText = 'Add Project';
 
 const projectsContainer = document.createElement('div');
 projectsContainer.classList.add('projects-container');
