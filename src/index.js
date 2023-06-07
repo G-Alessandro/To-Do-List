@@ -1,5 +1,7 @@
 import './style.css';
-import { tasksContainer, allTaskAmount, allTask } from './function';
+import {
+  tasksContainer, allTaskAmount, todayTaskAmount, sevenDayTaskAmount, allTask,
+} from './function';
 
 const body = document.getElementsByTagName('body')[0];
 // Top Bar
@@ -36,11 +38,13 @@ const todayBtn = document.createElement('button');
 todayBtn.classList.add('today-btn');
 sideBar.appendChild(todayBtn);
 todayBtn.innerText = 'Today';
+todayBtn.appendChild(todayTaskAmount);
 // Week Button
 const weekBtn = document.createElement('button');
 weekBtn.classList.add('week-btn');
 sideBar.appendChild(weekBtn);
 weekBtn.innerText = 'Next 7 Day';
+weekBtn.appendChild(sevenDayTaskAmount);
 // Project Title Container
 const projectTitleContainer = document.createElement('div');
 projectTitleContainer.classList.add('project-title-container');

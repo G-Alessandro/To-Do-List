@@ -8,7 +8,36 @@ tasksContainer.classList.add('tasks-container');
 const allTaskAmount = document.createElement('div');
 allTaskAmount.classList.add('tasks-amount');
 
-// function todayTask
+const todayTaskAmount = document.createElement('div');
+todayTaskAmount.classList.add('tasks-amount');
+
+const sevenDayTaskAmount = document.createElement('div');
+sevenDayTaskAmount.classList.add('tasks-amount');
+
+// function todayTask() {
+
+// }
+
+function totalTasks() {
+  let todayTasksTotal = 0;
+  let weekTasksTotal = 0;
+  allTaskAmount.innerText = tasksArray.length;
+  for (let i = 0; i < tasksArray.length; i += 1) {
+    if (tasksArray[i].date === '2023-06-08') {
+      todayTasksTotal += 1;
+      todayTaskAmount.innerText = todayTasksTotal;
+    }
+    if (tasksArray[i].date === '2023-06-08') {
+      weekTasksTotal += 1;
+      sevenDayTaskAmount.innerText = weekTasksTotal;
+    }
+  }
+}
+
+function seeDetails() {
+  const detailsDiv = document.createElement('div');
+  
+}
 
 function allTask() {
   for (let i = 0; i < tasksArray.length; i += 1) {
@@ -65,9 +94,10 @@ function allTask() {
     removeBtn.appendChild(removeImg);
     removeImg.src = removeIcon;
 
-    allTaskAmount.innerText = tasksArray.length;
+    totalTasks();
   }
-  console.log('test', tasksArray.length);
 }
 
-export { tasksContainer, allTaskAmount, allTask };
+export {
+  tasksContainer, allTaskAmount, todayTaskAmount, sevenDayTaskAmount, allTask,
+};
