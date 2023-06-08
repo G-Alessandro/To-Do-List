@@ -73,7 +73,6 @@ body {
   padding: 1rem 3rem 1rem;
   border: none;
   background-color: beige;
-
 }
 
 .tasks-amount {
@@ -165,6 +164,7 @@ input[type=checkbox] {
 /* QUI */
 .details-task-container {
   display: grid;
+  position: relative;
   grid-template-rows: .5fr repeat(4, 1fr);
   width: 30rem;
   height: fit-content;
@@ -179,6 +179,25 @@ input[type=checkbox] {
   border: .2rem solid black;
   border-radius: 12px;
   background-color: beige;
+}
+
+.close-detail-btn {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(255, 71, 71);
+}
+
+.close-detail-btn:hover {
+  width: 2.1rem;
+  height: 2.1rem;
 }
 
 .details-task {
@@ -221,4 +240,14 @@ input[type=checkbox] {
 .edit-image,
 .remove-image {
   width: 2.3rem;
+}
+
+.side-bar>button,
+.add-task-btn,
+.add-project-btn,
+.detail-btn,
+.edit-btn,
+.remove-btn,
+.close-detail-btn {
+  cursor: pointer;
 }

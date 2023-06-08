@@ -36,10 +36,22 @@ function totalTasks() {
   }
 }
 
+function closeDetailsTask(element) {
+  element.remove();
+}
+
 function seeDetailsTask(obj) {
   const detailsTaskContainer = document.createElement('div');
   detailsTaskContainer.classList.add('details-task-container');
   body.appendChild(detailsTaskContainer);
+
+  const closeDetailBtn = document.createElement('button');
+  closeDetailBtn.classList.add('close-detail-btn');
+  detailsTaskContainer.appendChild(closeDetailBtn);
+  closeDetailBtn.innerText = 'X';
+  closeDetailBtn.addEventListener('click', () => {
+    closeDetailsTask(detailsTaskContainer);
+  });
 
   const detailTaskTitle = document.createElement('h1');
   detailsTaskContainer.appendChild(detailTaskTitle);
