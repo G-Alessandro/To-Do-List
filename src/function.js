@@ -39,11 +39,14 @@ function totalTasks() {
 function closeDetailsTask(element) {
   element.remove();
 }
-
 function seeDetailsTask(obj) {
+  const detailsTaskBackground = document.createElement('div');
+  detailsTaskBackground.classList.add('details-task-background');
+  body.appendChild(detailsTaskBackground);
+
   const detailsTaskContainer = document.createElement('div');
   detailsTaskContainer.classList.add('details-task-container');
-  body.appendChild(detailsTaskContainer);
+  detailsTaskBackground.appendChild(detailsTaskContainer);
 
   const closeDetailBtn = document.createElement('button');
   closeDetailBtn.classList.add('close-detail-btn');
@@ -51,6 +54,7 @@ function seeDetailsTask(obj) {
   closeDetailBtn.innerText = 'X';
   closeDetailBtn.addEventListener('click', () => {
     closeDetailsTask(detailsTaskContainer);
+    closeDetailsTask(detailsTaskBackground);
   });
 
   const detailTaskTitle = document.createElement('h1');
@@ -104,6 +108,15 @@ function seeDetailsTask(obj) {
   const detailTaskPriority = document.createElement('p');
   detailTaskPriorityContainer.appendChild(detailTaskPriority);
   detailTaskPriority.innerText = obj.priority;
+  if (obj.priority === 'Low') {
+    detailTaskPriority.style.backgroundColor = '#66ce66';
+  }
+  if (obj.priority === 'Medium') {
+    detailTaskPriority.style.backgroundColor = '#ffb773';
+  }
+  if (obj.priority === 'High') {
+    detailTaskPriority.style.backgroundColor = '#fc7272';
+  }
 }
 
 function allTask() {
@@ -114,13 +127,13 @@ function allTask() {
 
     const priorityDiv = document.createElement('div');
     if (tasksArray[i].priority === 'Low') {
-      priorityDiv.style.backgroundColor = '#fc7272';
+      priorityDiv.style.backgroundColor = '#66ce66';
     }
     if (tasksArray[i].priority === 'Medium') {
       priorityDiv.style.backgroundColor = '#ffb773';
     }
     if (tasksArray[i].priority === 'High') {
-      priorityDiv.style.backgroundColor = '#66ce66';
+      priorityDiv.style.backgroundColor = '#fc7272';
     }
     priorityDiv.style.borderRadius = '8px 0px 0px 8px';
     taskDiv.appendChild(priorityDiv);

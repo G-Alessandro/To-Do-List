@@ -161,11 +161,19 @@ input[type=checkbox] {
 .detail-btn:hover {
   background-color: rgb(180, 180, 157);
 }
-/* QUI */
+
+.details-task-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  backdrop-filter: blur(3px);
+}
+
 .details-task-container {
   display: grid;
-  position: relative;
-  grid-template-rows: .5fr repeat(4, 1fr);
+  grid-template-rows: auto;
   width: 30rem;
   height: fit-content;
   align-items: center;
@@ -185,8 +193,8 @@ input[type=checkbox] {
   width: 2rem;
   height: 2rem;
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 2%;
+  right: 2%;
   color: white;
   font-size: 1.5rem;
   font-weight: 700;
@@ -208,6 +216,17 @@ input[type=checkbox] {
   justify-items: center;
   padding: 1rem 0 1rem 0;
   border-bottom: .1rem solid black;
+}
+
+.details-task>p{
+  font-size: 1.2rem;
+}
+
+.details-task:last-child>p{
+  color: white;
+  font-size: 1.2rem;
+  padding: .3rem 1rem;
+  border-radius: 5px;
 }
 
 .details-task:last-child {
