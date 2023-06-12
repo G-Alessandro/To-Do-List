@@ -162,7 +162,8 @@ input[type=checkbox] {
   background-color: rgb(180, 180, 157);
 }
 
-.details-task-background {
+.details-task-background,
+.edit-task-background {
   position: absolute;
   top: 0;
   right: 0;
@@ -224,7 +225,8 @@ input[type=checkbox] {
 
 .details-task:last-child>p{
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
   padding: .3rem 1rem;
   border-radius: 5px;
 }
@@ -244,6 +246,119 @@ input[type=checkbox] {
   align-self: center;
   background-color: rgb(231, 231, 206);
   border: none;
+}
+/* Qui */
+.edit-task-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 30rem;
+  height: fit-content;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  padding: 1rem;
+  border: .2rem solid black;
+  border-radius: 12px;
+  background-color: beige;
+}
+
+.edit-time-priority-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.edit-time-container>h3,
+.edit-priority-container>h3 {
+  margin-bottom: .5rem;
+}
+
+.edit-task-container>textarea {
+  font-size: 1.2rem;
+  padding: .5rem;
+  margin: .5rem 0rem 1rem;
+  resize: none;
+}
+
+.edit-priority-btn-container {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
+.edit-priority-btn-container>button {
+  width: fit-content;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 0.3rem 1rem;
+  border-radius: 5px;
+} 
+
+.edit-priority-btn-low {
+  color: #66ce66;
+  border: 0.1rem solid #66ce66;
+  background-color: beige;
+}
+
+.edit-priority-btn-medium {
+  color: #ffb773;
+  border: 0.1rem solid #ffb773;
+  background-color: beige;
+}
+
+.edit-priority-btn-high {
+  color: #fc7272;
+  border: 0.1rem solid #fc7272;
+  background-color: beige;
+}
+
+.edit-priority-btn-low:hover {
+  color: beige;
+  background-color: #66ce66;
+}
+
+.edit-priority-btn-medium:hover {
+  color: beige;
+  background-color: #ffb773;
+}
+
+.edit-priority-btn-high:hover {
+  color: beige;
+  background-color: #fc7272;
+}
+
+.edit-priority-btn-low-toggle {
+  color: beige;
+  background-color: #66ce66;
+}
+
+.edit-priority-btn-medium-toggle {
+  color: beige;
+  background-color: #ffb773;
+}
+
+.edit-priority-btn-high-toggle {
+  color: beige;
+  background-color: #fc7272;
+}
+
+.edit-confirm-btn {
+  align-self: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(124, 233, 255);
+  padding: .5rem 1rem;
+  margin-top: 2rem;
+  background-color: beige;
+  border: 4px solid rgb(124, 233, 255);
+  border-radius: 5px;
+}
+
+.edit-confirm-btn:hover {
+  color: white;
+  background-color: rgb(124, 233, 255);
 }
 
 .remove-btn {

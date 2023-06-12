@@ -20,6 +20,7 @@ sevenDayTaskAmount.classList.add('tasks-amount');
 
 // }
 
+// Function to show the quantities of tasks
 function totalTasks() {
   let todayTasksTotal = 0;
   let weekTasksTotal = 0;
@@ -36,9 +37,171 @@ function totalTasks() {
   }
 }
 
-function closeDetailsTask(element) {
-  element.remove();
+// Removed function closeDetailsTask
+
+function priorityDivColor(priority) {
+  const priorityColor = document.getElementsByClassName('priority-div')[0];
+  if (priority === 'Low') {
+    priorityColor.style.backgroundColor = '#66ce66';
+  }
+  if (priority === 'Medium') {
+    priorityColor.style.backgroundColor = '#ffb773';
+  }
+  if (priority === 'High') {
+    priorityColor.style.backgroundColor = '#fc7272';
+  }
+  priorityColor.style.borderRadius = '8px 0px 0px 8px';
 }
+
+// Function to edit the details of the task
+function editTask(obj) {
+  const editTaskBackground = document.createElement('div');
+  editTaskBackground.classList.add('edit-task-background');
+  body.appendChild(editTaskBackground);
+
+  const editTaskContainer = document.createElement('div');
+  editTaskContainer.classList.add('edit-task-container');
+  editTaskBackground.appendChild(editTaskContainer);
+
+  const editTaskTitle = document.createElement('h3');
+  editTaskContainer.appendChild(editTaskTitle);
+  editTaskTitle.innerText = 'Title :';
+
+  const editTaskTitleText = document.createElement('textarea');
+  editTaskTitleText.classList.add('edit-task-title-text');
+  editTaskTitleText.setAttribute('rows', '1');
+  editTaskTitleText.setAttribute('cols', '60');
+  editTaskContainer.appendChild(editTaskTitleText);
+  editTaskTitleText.innerText = obj.title;
+
+  const editTaskDescriptionTitle = document.createElement('h3');
+  editTaskContainer.appendChild(editTaskDescriptionTitle);
+  editTaskDescriptionTitle.innerText = 'Description :';
+
+  const editTaskDescriptionText = document.createElement('textarea');
+  editTaskDescriptionText.classList.add('edit-task-description-text');
+  editTaskDescriptionText.setAttribute('rows', '6');
+  editTaskDescriptionText.setAttribute('cols', '60');
+  editTaskContainer.appendChild(editTaskDescriptionText);
+  editTaskDescriptionText.innerText = obj.description;
+
+  const editTimePriorityContainer = document.createElement('div');
+  editTimePriorityContainer.classList.add('edit-time-priority-container');
+  editTaskContainer.appendChild(editTimePriorityContainer);
+
+  const editTimeContainer = document.createElement('div');
+  editTimeContainer.classList.add('edit-time-container');
+  editTimePriorityContainer.appendChild(editTimeContainer);
+
+  const editTaskDateTitle = document.createElement('h3');
+  editTimeContainer.appendChild(editTaskDateTitle);
+  editTaskDateTitle.innerText = 'Duo Date :';
+
+  const editTaskDate = document.createElement('textarea');
+  editTaskDate.classList.add('edit-task-date-text');
+  editTimeContainer.appendChild(editTaskDate);
+  editTaskDate.innerText = obj.date;
+
+  // Edit Task Date Function
+
+  const editPriorityContainer = document.createElement('div');
+  editPriorityContainer.classList.add('edit-priority-container');
+  editTimePriorityContainer.appendChild(editPriorityContainer);
+
+  const editTaskPriorityTitle = document.createElement('h3');
+  editPriorityContainer.appendChild(editTaskPriorityTitle);
+  editTaskPriorityTitle.innerText = 'Priority :';
+
+  const editPriorityBtnContainer = document.createElement('div');
+  editPriorityBtnContainer.classList.add('edit-priority-btn-container');
+  editPriorityContainer.appendChild(editPriorityBtnContainer);
+
+  const editPriorityBtnLow = document.createElement('button');
+  editPriorityBtnLow.classList.add('edit-priority-btn-low');
+  editPriorityBtnContainer.appendChild(editPriorityBtnLow);
+  editPriorityBtnLow.innerText = 'Low';
+
+  const editPriorityBtnMedium = document.createElement('button');
+  editPriorityBtnMedium.classList.add('edit-priority-btn-medium');
+  editPriorityBtnContainer.appendChild(editPriorityBtnMedium);
+  editPriorityBtnMedium.innerText = 'Medium';
+
+  const editPriorityBtnHigh = document.createElement('button');
+  editPriorityBtnHigh.classList.add('edit-priority-btn-high');
+  editPriorityBtnContainer.appendChild(editPriorityBtnHigh);
+  editPriorityBtnHigh.innerText = 'High';
+
+  let priorityChoice = '';
+
+  if (obj.priority === 'Low') {
+    editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    priorityChoice = 'Low';
+  }
+  if (obj.priority === 'Medium') {
+    editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    priorityChoice = 'Medium';
+  }
+  if (obj.priority === 'High') {
+    editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    priorityChoice = 'High';
+  }
+
+  editPriorityBtnLow.addEventListener('click', () => {
+    if (editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle') === false) {
+      editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    }
+    if (editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle') === true) {
+      editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    }
+    if (editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle') === true) {
+      editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    }
+    priorityChoice = 'Low';
+  });
+
+  editPriorityBtnMedium.addEventListener('click', () => {
+    if (editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle') === false) {
+      editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    }
+    if (editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle') === true) {
+      editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    }
+    if (editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle') === true) {
+      editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    }
+    priorityChoice = 'Medium';
+  });
+
+  editPriorityBtnHigh.addEventListener('click', () => {
+    if (editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle') === false) {
+      editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    }
+    if (editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle') === true) {
+      editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    }
+    if (editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle') === true) {
+      editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    }
+    priorityChoice = 'High';
+  });
+
+  const editConfirmBtn = document.createElement('button');
+  editConfirmBtn.classList.add('edit-confirm-btn');
+  editTaskContainer.appendChild(editConfirmBtn);
+  editConfirmBtn.innerText = 'Confirm Edit';
+  editConfirmBtn.addEventListener('click', () => {
+    const taskTitle = document.getElementsByClassName('task-title')[0];
+    obj.title = editTaskTitleText.value;
+    obj.description = editTaskDescriptionText.value;
+    obj.date = editTaskDate.value;
+    obj.priority = priorityChoice;
+    editTaskBackground.remove();
+    taskTitle.innerText = obj.title;
+    priorityDivColor(priorityChoice);
+  });
+}
+
+// Function to see the details of the task
 function seeDetailsTask(obj) {
   const detailsTaskBackground = document.createElement('div');
   detailsTaskBackground.classList.add('details-task-background');
@@ -53,8 +216,8 @@ function seeDetailsTask(obj) {
   detailsTaskContainer.appendChild(closeDetailBtn);
   closeDetailBtn.innerText = 'X';
   closeDetailBtn.addEventListener('click', () => {
-    closeDetailsTask(detailsTaskContainer);
-    closeDetailsTask(detailsTaskBackground);
+    detailsTaskContainer.remove();
+    detailsTaskBackground.remove();
   });
 
   const detailTaskTitle = document.createElement('h1');
@@ -126,6 +289,7 @@ function allTask() {
     tasksContainer.appendChild(taskDiv);
 
     const priorityDiv = document.createElement('div');
+    priorityDiv.classList.add('priority-div');
     if (tasksArray[i].priority === 'Low') {
       priorityDiv.style.backgroundColor = '#66ce66';
     }
@@ -169,6 +333,10 @@ function allTask() {
     editImg.classList.add('edit-image');
     editBtn.appendChild(editImg);
     editImg.src = editIcon;
+
+    editBtn.addEventListener('click', () => {
+      editTask(tasksArray[i]);
+    });
 
     const removeBtn = document.createElement('button');
     removeBtn.classList.add('remove-btn');
