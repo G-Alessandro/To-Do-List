@@ -247,7 +247,7 @@ input[type=checkbox] {
   background-color: rgb(231, 231, 206);
   border: none;
 }
-/* Qui */
+
 .edit-task-container {
   position: absolute;
   display: flex;

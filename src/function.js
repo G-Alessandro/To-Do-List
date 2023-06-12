@@ -37,8 +37,7 @@ function totalTasks() {
   }
 }
 
-// Removed function closeDetailsTask
-
+// Function to change priority color
 function priorityDivColor(priority) {
   const priorityColor = document.getElementsByClassName('priority-div')[0];
   if (priority === 'Low') {
@@ -198,6 +197,7 @@ function editTask(obj) {
     editTaskBackground.remove();
     taskTitle.innerText = obj.title;
     priorityDivColor(priorityChoice);
+    console.log(tasksArray[0]);
   });
 }
 
@@ -286,6 +286,7 @@ function allTask() {
   for (let i = 0; i < tasksArray.length; i += 1) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task-div');
+    taskDiv.setAttribute('data', `${tasksArray[i].title}`);
     tasksContainer.appendChild(taskDiv);
 
     const priorityDiv = document.createElement('div');
@@ -345,6 +346,19 @@ function allTask() {
     removeImg.classList.add('remove-image');
     removeBtn.appendChild(removeImg);
     removeImg.src = removeIcon;
+
+    removeBtn.addEventListener('click', () => {
+      for (let e = 0; e < tasksArray.length; e += 1) {
+        const taskDivData = taskDiv.getAttribute('data');
+        const taskTitleDel = tasksArray[e].title;
+        const taskArrayFind = tasksArray.find(({ title }) => title === taskDivData);
+        const taskArrayIndex = tasksArray.indexOf(taskArrayFind);
+        if (taskTitleDel === taskDivData) {
+          tasksArray.splice(taskArrayIndex, 1);
+          taskDiv.remove();
+        }
+      }
+    });
 
     totalTasks();
   }
