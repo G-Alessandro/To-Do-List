@@ -38,8 +38,8 @@ function totalTasks() {
 }
 
 // Function to change priority color
-function priorityDivColor(priority) {
-  const priorityColor = document.getElementsByClassName('priority-div')[0];
+function priorityDivColor(priorityId, priority) {
+  const priorityColor = priorityId;
   if (priority === 'Low') {
     priorityColor.style.backgroundColor = '#66ce66';
   }
@@ -49,11 +49,10 @@ function priorityDivColor(priority) {
   if (priority === 'High') {
     priorityColor.style.backgroundColor = '#fc7272';
   }
-  priorityColor.style.borderRadius = '8px 0px 0px 8px';
 }
 
 // Function to edit the details of the task
-function editTask(obj) {
+function editTask(obj, taskId, titleId, priorityId) {
   const editTaskBackground = document.createElement('div');
   editTaskBackground.classList.add('edit-task-background');
   body.appendChild(editTaskBackground);
@@ -189,15 +188,14 @@ function editTask(obj) {
   editTaskContainer.appendChild(editConfirmBtn);
   editConfirmBtn.innerText = 'Confirm Edit';
   editConfirmBtn.addEventListener('click', () => {
-    const taskTitle = document.getElementsByClassName('task-title')[0];
     obj.title = editTaskTitleText.value;
     obj.description = editTaskDescriptionText.value;
     obj.date = editTaskDate.value;
     obj.priority = priorityChoice;
     editTaskBackground.remove();
-    taskTitle.innerText = obj.title;
-    priorityDivColor(priorityChoice);
-    console.log(tasksArray[0]);
+    titleId.innerText = obj.title;
+    taskId.setAttribute('data', `${obj.title}`);
+    priorityDivColor(priorityId, priorityChoice);
   });
 }
 
@@ -286,11 +284,13 @@ function allTask() {
   for (let i = 0; i < tasksArray.length; i += 1) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task-div');
+    taskDiv.setAttribute('id', `task-div-${i}`);
     taskDiv.setAttribute('data', `${tasksArray[i].title}`);
     tasksContainer.appendChild(taskDiv);
 
     const priorityDiv = document.createElement('div');
-    priorityDiv.classList.add('priority-div');
+    priorityDiv.classList.add('task-priority');
+    priorityDiv.setAttribute('id', `task-priority-${i}`);
     if (tasksArray[i].priority === 'Low') {
       priorityDiv.style.backgroundColor = '#66ce66';
     }
@@ -310,6 +310,7 @@ function allTask() {
 
     const taskTitle = document.createElement('div');
     taskTitle.classList.add('task-title');
+    taskTitle.setAttribute('id', `task-title-${i}`);
     taskDiv.appendChild(taskTitle);
     taskTitle.innerText = tasksArray[i].title;
 
@@ -335,8 +336,11 @@ function allTask() {
     editBtn.appendChild(editImg);
     editImg.src = editIcon;
 
+    const taskId = document.getElementById(`task-div-${i}`);
+    const taskPriorityId = document.getElementById(`task-priority-${i}`);
+    const taskTitleId = document.getElementById(`task-title-${i}`);
     editBtn.addEventListener('click', () => {
-      editTask(tasksArray[i]);
+      editTask(tasksArray[i], taskId, taskTitleId, taskPriorityId);
     });
 
     const removeBtn = document.createElement('button');

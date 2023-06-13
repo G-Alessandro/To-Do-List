@@ -95,13 +95,22 @@ body {
   background-color: rgb(170, 255, 186);
 }
 
-.tasks-container {
+/* .tasks-container {
   display: grid;
   grid-template-rows: auto;
   padding: 1rem;
   margin: 1rem;
   row-gap: 1rem;
-  overflow-y: scroll
+  overflow-y: scroll;
+} */
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;  
+  padding: 1rem;
+  margin: 1rem;
+  row-gap: 1rem;
+  overflow-y: scroll;
 }
 
 /* width */
@@ -125,9 +134,10 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(71, 224, 255); 
 }
-
+ /* Qui */
 .task-div {
   display: grid;
+  flex-shrink: 0;
   height: 3.5rem;
   grid-template-columns: .1fr 1fr 4fr 1fr 1fr 1fr 1fr;
   background-color: rgb(228, 228, 206);
