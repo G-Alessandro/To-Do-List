@@ -87,6 +87,7 @@ function monthName(objMonth) {
     case '12':
       month = 'Dec';
       break;
+    // no default
   }
   return month;
 }
@@ -123,7 +124,7 @@ function priorityDivColor(priorityId, priority) {
 }
 
 // Function to edit the details of the task
-function editTask(obj, taskId, titleId, priorityId) {
+function editTask(obj, taskId, titleId, priorityId, dateId) {
   const editTaskBackground = document.createElement('div');
   editTaskBackground.classList.add('edit-task-background');
   body.appendChild(editTaskBackground);
@@ -166,7 +167,6 @@ function editTask(obj, taskId, titleId, priorityId) {
   editTimeContainer.appendChild(editTaskDateTitle);
   editTaskDateTitle.innerText = 'Duo Date :';
 
-  // Edit Task Date Function
   const editTaskDate = document.createElement('input');
   editTaskDate.setAttribute('type', 'date');
   editTaskDate.classList.add('edit-task-date-input');
@@ -260,12 +260,18 @@ function editTask(obj, taskId, titleId, priorityId) {
   editTaskContainer.appendChild(editConfirmBtn);
   editConfirmBtn.innerText = 'Confirm Edit';
   editConfirmBtn.addEventListener('click', () => {
-    obj.title = editTaskTitleText.value;
-    obj.description = editTaskDescriptionText.value;
-    obj.date = editTaskDate.value;
-    obj.priority = priorityChoice;
+    const object = obj;
+    const idTitle = titleId;
+    const date = dateId;
+    object.title = editTaskTitleText.value;
+    object.description = editTaskDescriptionText.value;
+    object.day = editTaskDate.value.slice(8, 10);
+    object.month = editTaskDate.value.slice(5, 7);
+    object.year = editTaskDate.value.slice(0, 4);
+    date.innerText = `${monthName(object.month)}-${object.day}-${object.year}`;
+    object.priority = priorityChoice;
     editTaskBackground.remove();
-    titleId.innerText = obj.title;
+    idTitle.innerText = obj.title;
     taskId.setAttribute('data', `${obj.title}`);
     priorityDivColor(priorityId, priorityChoice);
   });
@@ -397,6 +403,7 @@ function allTask() {
 
     const taskDate = document.createElement('div');
     taskDate.classList.add('task-date');
+    taskDate.setAttribute('id', `task-date-${i}`);
     taskDiv.appendChild(taskDate);
     assignDate();
     taskDate.innerText = `${monthName(tasksArray[i].month)}-${tasksArray[i].day}-${tasksArray[i].year}`;
@@ -412,8 +419,9 @@ function allTask() {
     const taskId = document.getElementById(`task-div-${i}`);
     const taskPriorityId = document.getElementById(`task-priority-${i}`);
     const taskTitleId = document.getElementById(`task-title-${i}`);
+    const taskDateId = document.getElementById(`task-date-${i}`);
     editBtn.addEventListener('click', () => {
-      editTask(tasksArray[i], taskId, taskTitleId, taskPriorityId);
+      editTask(tasksArray[i], taskId, taskTitleId, taskPriorityId, taskDateId);
     });
 
     const removeBtn = document.createElement('button');
@@ -438,8 +446,8 @@ function allTask() {
     });
 
     totalTasks();
-    console.log(tasksArray);
   }
+  console.log(tasksArray);
   console.log('test');
 }
 
