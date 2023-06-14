@@ -20,6 +20,77 @@ sevenDayTaskAmount.classList.add('tasks-amount');
 
 // }
 
+// Function to assign dates to tasks
+function assignDate() {
+  const todayDate = new Date();
+
+  const todayDay = todayDate.getDate();
+  const todayMonth = todayDate.getMonth() + 1;
+  const todayYear = todayDate.getFullYear();
+
+  for (let i = 0; i < tasksArray.length; i += 2) {
+    tasksArray[i].day = todayDay + i;
+    tasksArray[i + 1].day = todayDay + i;
+    if (tasksArray[i].day.toString().length === 1) {
+      tasksArray[i].day = `0${tasksArray[i].day}`;
+      tasksArray[i + 1].day = tasksArray[i].day;
+    }
+
+    tasksArray[i].month = todayMonth;
+    tasksArray[i + 1].month = todayMonth;
+    if (tasksArray[i].month.toString().length === 1) {
+      tasksArray[i].month = `0${tasksArray[i].month}`;
+      tasksArray[i + 1].month = tasksArray[i].month;
+    }
+    tasksArray[i].year = todayYear;
+    tasksArray[i + 1].year = todayYear;
+  }
+}
+
+// Function for the name of the month
+function monthName(objMonth) {
+  let month = '';
+  switch (objMonth) {
+    case '01':
+      month = 'Jan';
+      break;
+    case '02':
+      month = 'Feb';
+      break;
+    case '03':
+      month = 'Mar';
+      break;
+    case '04':
+      month = 'Apr';
+      break;
+    case '05':
+      month = 'May';
+      break;
+    case '06':
+      month = 'Jun';
+      break;
+    case '07':
+      month = 'Jul';
+      break;
+    case '08':
+      month = 'Aug';
+      break;
+    case '09':
+      month = 'Sep';
+      break;
+    case '10':
+      month = 'Oct';
+      break;
+    case '11':
+      month = 'Nov';
+      break;
+    case '12':
+      month = 'Dec';
+      break;
+  }
+  return month;
+}
+
 // Function to show the quantities of tasks
 function totalTasks() {
   let todayTasksTotal = 0;
@@ -95,12 +166,12 @@ function editTask(obj, taskId, titleId, priorityId) {
   editTimeContainer.appendChild(editTaskDateTitle);
   editTaskDateTitle.innerText = 'Duo Date :';
 
-  const editTaskDate = document.createElement('textarea');
-  editTaskDate.classList.add('edit-task-date-text');
-  editTimeContainer.appendChild(editTaskDate);
-  editTaskDate.innerText = obj.date;
-
   // Edit Task Date Function
+  const editTaskDate = document.createElement('input');
+  editTaskDate.setAttribute('type', 'date');
+  editTaskDate.classList.add('edit-task-date-input');
+  editTimeContainer.appendChild(editTaskDate);
+  editTaskDate.value = `${obj.year}-${obj.month}-${obj.day}`;
 
   const editPriorityContainer = document.createElement('div');
   editPriorityContainer.classList.add('edit-priority-container');
@@ -183,6 +254,7 @@ function editTask(obj, taskId, titleId, priorityId) {
     priorityChoice = 'High';
   });
 
+  // Confirm edit button
   const editConfirmBtn = document.createElement('button');
   editConfirmBtn.classList.add('edit-confirm-btn');
   editTaskContainer.appendChild(editConfirmBtn);
@@ -326,7 +398,8 @@ function allTask() {
     const taskDate = document.createElement('div');
     taskDate.classList.add('task-date');
     taskDiv.appendChild(taskDate);
-    taskDate.innerText = tasksArray[i].date;
+    assignDate();
+    taskDate.innerText = `${monthName(tasksArray[i].month)}-${tasksArray[i].day}-${tasksArray[i].year}`;
 
     const editBtn = document.createElement('button');
     editBtn.classList.add('edit-btn');
@@ -365,6 +438,7 @@ function allTask() {
     });
 
     totalTasks();
+    console.log(tasksArray);
   }
   console.log('test');
 }
