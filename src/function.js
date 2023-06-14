@@ -16,18 +16,17 @@ todayTaskAmount.classList.add('tasks-amount');
 const sevenDayTaskAmount = document.createElement('div');
 sevenDayTaskAmount.classList.add('tasks-amount');
 
+const todayDate = new Date();
+const todayDay = todayDate.getDate();
+const todayMonth = todayDate.getMonth() + 1;
+const todayYear = todayDate.getFullYear();
+
 // function todayTask() {
 
 // }
 
 // Function to assign dates to tasks
 function assignDate() {
-  const todayDate = new Date();
-
-  const todayDay = todayDate.getDate();
-  const todayMonth = todayDate.getMonth() + 1;
-  const todayYear = todayDate.getFullYear();
-
   for (let i = 0; i < tasksArray.length; i += 2) {
     tasksArray[i].day = todayDay + i;
     tasksArray[i + 1].day = todayDay + i;
@@ -94,15 +93,26 @@ function monthName(objMonth) {
 
 // Function to show the quantities of tasks
 function totalTasks() {
+  allTaskAmount.innerText = tasksArray.length;
   let todayTasksTotal = 0;
   let weekTasksTotal = 0;
-  allTaskAmount.innerText = tasksArray.length;
+
   for (let i = 0; i < tasksArray.length; i += 1) {
-    if (tasksArray[i].date === '2023-06-08') {
+    let month = todayMonth;
+    let day = todayDay;
+    if (month.toString().length === 1) {
+      month = `0${month}`;
+    }
+    if (day.toString().length === 1) {
+      day = `0${day}`;
+    }
+    const objectDate = tasksArray[i].year + tasksArray[i].month + tasksArray[i].day;
+    const currentDate = todayYear + month + day;
+    if (objectDate === currentDate) {
       todayTasksTotal += 1;
       todayTaskAmount.innerText = todayTasksTotal;
     }
-    if (tasksArray[i].date === '2023-06-08') {
+    if (Number(tasksArray[i].day) < day + 7) {
       weekTasksTotal += 1;
       sevenDayTaskAmount.innerText = weekTasksTotal;
     }
@@ -447,7 +457,6 @@ function allTask() {
 
     totalTasks();
   }
-  console.log(tasksArray);
   console.log('test');
 }
 
