@@ -21,6 +21,12 @@ const todayDay = todayDate.getDate();
 const todayMonth = todayDate.getMonth() + 1;
 const todayYear = todayDate.getFullYear();
 
+// Function to make the first letter of a string uppercase
+function uppercaseString(string) {
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+
+// Function to remove tasks from taskContainer
 function removeTask() {
   const divToRemove = document.querySelectorAll('.task-div');
   divToRemove.forEach((element) => element.remove());
@@ -111,13 +117,13 @@ function totalTasks() {
     const currentDate = todayYear + month + day;
     if (objectDate === currentDate) {
       todayTasksTotal += 1;
-      todayTaskAmount.innerText = todayTasksTotal;
     }
     if (Number(tasksArray[i].day) < day + 7) {
       weekTasksTotal += 1;
-      sevenDayTaskAmount.innerText = weekTasksTotal;
     }
   }
+  todayTaskAmount.innerText = todayTasksTotal;
+  sevenDayTaskAmount.innerText = weekTasksTotal;
 }
 
 // Function to change priority color
@@ -153,7 +159,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
   editTaskTitleText.setAttribute('rows', '1');
   editTaskTitleText.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskTitleText);
-  editTaskTitleText.innerText = obj.title;
+  editTaskTitleText.innerText = uppercaseString(obj.title);
 
   const editTaskDescriptionTitle = document.createElement('h3');
   editTaskContainer.appendChild(editTaskDescriptionTitle);
@@ -164,7 +170,18 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
   editTaskDescriptionText.setAttribute('rows', '6');
   editTaskDescriptionText.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskDescriptionText);
-  editTaskDescriptionText.innerText = obj.description;
+  editTaskDescriptionText.innerText = uppercaseString(obj.description);
+
+  const editTaskProjectTitle = document.createElement('h3');
+  editTaskContainer.appendChild(editTaskProjectTitle);
+  editTaskProjectTitle.innerText = 'Project :';
+
+  const editTaskProject = document.createElement('textarea');
+  editTaskProject.classList.add('edit-task-title-text');
+  editTaskProject.setAttribute('rows', '1');
+  editTaskProject.setAttribute('cols', '60');
+  editTaskContainer.appendChild(editTaskProject);
+  editTaskProject.innerText = uppercaseString(obj.project);
 
   const editTimePriorityContainer = document.createElement('div');
   editTimePriorityContainer.classList.add('edit-time-priority-container');
@@ -276,6 +293,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
     const date = dateId;
     object.title = editTaskTitleText.value;
     object.description = editTaskDescriptionText.value;
+    object.project = editTaskProject.value;
     object.day = editTaskDate.value.slice(8, 10);
     object.month = editTaskDate.value.slice(5, 7);
     object.year = editTaskDate.value.slice(0, 4);
@@ -285,6 +303,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
     idTitle.innerText = obj.title;
     taskId.setAttribute('data', `${obj.title}`);
     priorityDivColor(priorityId, priorityChoice);
+    totalTasks();
   });
 }
 
@@ -309,7 +328,7 @@ function seeDetailsTask(obj) {
 
   const detailTaskTitle = document.createElement('h1');
   detailsTaskContainer.appendChild(detailTaskTitle);
-  detailTaskTitle.innerText = obj.title;
+  detailTaskTitle.innerText = uppercaseString(obj.title);
 
   const detailTaskDescContainer = document.createElement('div');
   detailTaskDescContainer.classList.add('details-task');
@@ -321,7 +340,7 @@ function seeDetailsTask(obj) {
 
   const detailTaskDesc = document.createElement('p');
   detailTaskDescContainer.appendChild(detailTaskDesc);
-  detailTaskDesc.innerText = obj.description;
+  detailTaskDesc.innerText = uppercaseString(obj.description);
 
   const detailTaskDateContainer = document.createElement('div');
   detailTaskDateContainer.classList.add('details-task');
@@ -333,7 +352,7 @@ function seeDetailsTask(obj) {
 
   const detailTaskDate = document.createElement('p');
   detailTaskDateContainer.appendChild(detailTaskDate);
-  detailTaskDate.innerText = obj.date;
+  detailTaskDate.innerText = `${monthName(obj.month)}-${obj.day}-${obj.year}`;
 
   const detailTaskProjectContainer = document.createElement('div');
   detailTaskProjectContainer.classList.add('details-task');
@@ -345,7 +364,7 @@ function seeDetailsTask(obj) {
 
   const detailTaskProject = document.createElement('p');
   detailTaskProjectContainer.appendChild(detailTaskProject);
-  detailTaskProject.innerText = obj.projects;
+  detailTaskProject.innerText = uppercaseString(obj.project);
 
   const detailTaskPriorityContainer = document.createElement('div');
   detailTaskPriorityContainer.classList.add('details-task');
@@ -369,9 +388,9 @@ function seeDetailsTask(obj) {
   }
 }
 
+// Function to create tasks in taskContainer
 function allTask(objIndex, tasksQuantity) {
-  let i = objIndex;
-  for (; i < tasksQuantity; i += 1) {
+  for (let i = objIndex; i < tasksQuantity; i += 1) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task-div');
     taskDiv.setAttribute('id', `task-div-${i}`);
@@ -410,7 +429,7 @@ function allTask(objIndex, tasksQuantity) {
     detailsBtn.innerText = 'Details';
 
     detailsBtn.addEventListener('click', () => {
-      seeDetailsTask(tasksArray[objIndex]);
+      seeDetailsTask(tasksArray[i]);
     });
 
     const taskDate = document.createElement('div');
@@ -433,7 +452,7 @@ function allTask(objIndex, tasksQuantity) {
     const taskTitleId = document.getElementById(`task-title-${i}`);
     const taskDateId = document.getElementById(`task-date-${i}`);
     editBtn.addEventListener('click', () => {
-      editTask(tasksArray[objIndex], taskId, taskTitleId, taskPriorityId, taskDateId);
+      editTask(tasksArray[i], taskId, taskTitleId, taskPriorityId, taskDateId);
     });
 
     const removeBtn = document.createElement('button');
@@ -461,6 +480,7 @@ function allTask(objIndex, tasksQuantity) {
   console.log('test');
 }
 
+// Function to show daily tasks
 function todayTask() {
   let month = todayMonth;
   let day = todayDay;
@@ -480,6 +500,7 @@ function todayTask() {
   }
 }
 
+// Function to show the tasks of the week
 function weekTask() {
   let month = todayMonth;
   let day = todayDay;
