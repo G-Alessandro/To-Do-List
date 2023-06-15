@@ -21,9 +21,10 @@ const todayDay = todayDate.getDate();
 const todayMonth = todayDate.getMonth() + 1;
 const todayYear = todayDate.getFullYear();
 
-// function todayTask() {
-
-// }
+function removeTask() {
+  const divToRemove = document.querySelectorAll('.task-div');
+  divToRemove.forEach((element) => element.remove());
+}
 
 // Function to assign dates to tasks
 function assignDate() {
@@ -368,8 +369,9 @@ function seeDetailsTask(obj) {
   }
 }
 
-function allTask() {
-  for (let i = 0; i < tasksArray.length; i += 1) {
+function allTask(objIndex, tasksQuantity) {
+  let i = objIndex;
+  for (; i < tasksQuantity; i += 1) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task-div');
     taskDiv.setAttribute('id', `task-div-${i}`);
@@ -408,7 +410,7 @@ function allTask() {
     detailsBtn.innerText = 'Details';
 
     detailsBtn.addEventListener('click', () => {
-      seeDetailsTask(tasksArray[i]);
+      seeDetailsTask(tasksArray[objIndex]);
     });
 
     const taskDate = document.createElement('div');
@@ -431,7 +433,7 @@ function allTask() {
     const taskTitleId = document.getElementById(`task-title-${i}`);
     const taskDateId = document.getElementById(`task-date-${i}`);
     editBtn.addEventListener('click', () => {
-      editTask(tasksArray[i], taskId, taskTitleId, taskPriorityId, taskDateId);
+      editTask(tasksArray[objIndex], taskId, taskTitleId, taskPriorityId, taskDateId);
     });
 
     const removeBtn = document.createElement('button');
@@ -453,13 +455,61 @@ function allTask() {
           taskDiv.remove();
         }
       }
+      totalTasks();
     });
-
-    totalTasks();
   }
   console.log('test');
 }
 
+function todayTask() {
+  let month = todayMonth;
+  let day = todayDay;
+  if (month.toString().length === 1) {
+    month = `0${month}`;
+  }
+  if (day.toString().length === 1) {
+    day = `0${day}`;
+  }
+  const fullDate = todayYear + month + day;
+  for (let i = 0; i < tasksArray.length; i += 1) {
+    const taskDate = tasksArray[i].year + tasksArray[i].month + tasksArray[i].day;
+    if (taskDate === fullDate) {
+      const x = i + 1;
+      allTask(i, x);
+    }
+  }
+}
+
+function weekTask() {
+  let month = todayMonth;
+  let day = todayDay;
+  const week = day + 7;
+  for (; day < week; day += 1) {
+    if (month.toString().length === 1) {
+      month = `0${month}`;
+    }
+    if (day.toString().length === 1) {
+      day = `0${day}`;
+    }
+    const fullDate = todayYear + month + day;
+    for (let i = 0; i < tasksArray.length; i += 1) {
+      const taskDate = tasksArray[i].year + tasksArray[i].month + tasksArray[i].day;
+      if (taskDate === fullDate) {
+        const x = i + 1;
+        allTask(i, x);
+      }
+    }
+  }
+}
+
 export {
-  tasksContainer, allTaskAmount, todayTaskAmount, sevenDayTaskAmount, allTask,
+  removeTask,
+  tasksContainer,
+  allTaskAmount,
+  todayTaskAmount,
+  sevenDayTaskAmount,
+  allTask,
+  totalTasks,
+  todayTask,
+  weekTask,
 };

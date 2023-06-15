@@ -1,6 +1,15 @@
 import './style.css';
+import tasksArray from './tasks';
 import {
-  tasksContainer, allTaskAmount, todayTaskAmount, sevenDayTaskAmount, allTask,
+  removeTask,
+  tasksContainer,
+  allTaskAmount,
+  todayTaskAmount,
+  sevenDayTaskAmount,
+  allTask,
+  totalTasks,
+  todayTask,
+  weekTask,
 } from './function';
 
 const body = document.getElementsByTagName('body')[0];
@@ -68,4 +77,23 @@ sideBar.appendChild(projectsContainer);
 // tasksContainer.classList.add('tasks-container');
 body.appendChild(tasksContainer);
 
-allTask();
+allTask(0, tasksArray.length);
+totalTasks();
+
+allTaskBtn.addEventListener('click', () => {
+  removeTask();
+  allTask(0, tasksArray.length);
+  totalTasks();
+});
+
+todayBtn.addEventListener('click', () => {
+  removeTask();
+  todayTask();
+  totalTasks();
+});
+
+weekBtn.addEventListener('click', () => {
+  removeTask();
+  weekTask();
+  totalTasks();
+});
