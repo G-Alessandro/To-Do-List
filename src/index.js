@@ -8,6 +8,7 @@ import {
   sevenDayTaskAmount,
   allTask,
   totalTasks,
+  addProject,
   todayTask,
   weekTask,
 } from './function';
@@ -72,28 +73,29 @@ addProjectBtn.innerText = 'Add Project';
 const projectsContainer = document.createElement('div');
 projectsContainer.classList.add('projects-container');
 sideBar.appendChild(projectsContainer);
-// Tasks container
-// const tasksContainer = document.createElement('div');
-// tasksContainer.classList.add('tasks-container');
 body.appendChild(tasksContainer);
 
 allTask(0, tasksArray.length);
+addProject();
 totalTasks();
 
 allTaskBtn.addEventListener('click', () => {
   removeTask();
+  addProject();
   allTask(0, tasksArray.length);
   totalTasks();
 });
 
 todayBtn.addEventListener('click', () => {
   removeTask();
+  addProject();
   todayTask();
   totalTasks();
 });
 
 weekBtn.addEventListener('click', () => {
   removeTask();
+  addProject();
   weekTask();
   totalTasks();
 });

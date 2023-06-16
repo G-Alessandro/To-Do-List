@@ -64,7 +64,9 @@ body {
   background-color: rgb(208, 208, 183);
 }
 
-.side-bar>button {
+
+.side-bar>button,
+.project-btn {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,6 +75,23 @@ body {
   padding: 1rem 3rem 1rem;
   border: none;
   background-color: beige;
+}
+
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+  align-items: center;
+  overflow-y: scroll;
+  margin: 0 1rem;
+  border-top: 0.1rem solid black;
+  border-bottom: 0.1rem solid black;
+  border-left: 0.1rem solid black;
+}
+
+.project-btn {
+  width: 20rem;
+  padding-left: 3.5rem;
 }
 
 .tasks-amount {
@@ -87,22 +106,14 @@ body {
   border-radius: 50%;
 }
 
-.side-bar>button:hover{
+.side-bar>button:hover,
+.project-btn:hover {
   background-color: rgb(208, 208, 183);
 }
 
 .side-bar>button:focus {
   background-color: rgb(170, 255, 186);
 }
-
-/* .tasks-container {
-  display: grid;
-  grid-template-rows: auto;
-  padding: 1rem;
-  margin: 1rem;
-  row-gap: 1rem;
-  overflow-y: scroll;
-} */
 
 .tasks-container {
   display: flex;
@@ -134,7 +145,7 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(71, 224, 255); 
 }
- /* Qui */
+
 .task-div {
   display: grid;
   flex-shrink: 0;

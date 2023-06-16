@@ -30,6 +30,8 @@ function uppercaseString(string) {
 function removeTask() {
   const divToRemove = document.querySelectorAll('.task-div');
   divToRemove.forEach((element) => element.remove());
+  const btnToRemove = document.querySelectorAll('.project-btn');
+  btnToRemove.forEach((element) => element.remove());
 }
 
 // Function to assign dates to tasks
@@ -390,6 +392,9 @@ function seeDetailsTask(obj) {
 
 // Function to create tasks in taskContainer
 function allTask(objIndex, tasksQuantity) {
+  const divToRemove = document.querySelectorAll('project-btn');
+  divToRemove.forEach((element) => element.remove());
+  // addProject();
   for (let i = objIndex; i < tasksQuantity; i += 1) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task-div');
@@ -480,6 +485,47 @@ function allTask(objIndex, tasksQuantity) {
   console.log('test');
 }
 
+// Function to add projects to the sidebar
+function addProject() {
+  const projectsArray = [];
+  for (let i = 0; i < tasksArray.length; i += 1) {
+    const projectValue = tasksArray[i].project;
+    if (projectsArray.includes(projectValue) === false) {
+      projectsArray.push(projectValue);
+    }
+  }
+  const projectsContainer = document.getElementsByClassName('projects-container')[0];
+  for (let i = 0; i < projectsArray.length; i += 1) {
+    const projectBtn = document.createElement('button');
+    projectsContainer.appendChild(projectBtn);
+    projectBtn.classList.add('project-btn');
+    projectBtn.setAttribute('id', `project-btn-${i}`);
+    projectBtn.setAttribute('data', `${projectsArray[i]}`);
+    projectBtn.innerText = uppercaseString(projectsArray[i]);
+    const projectTaskTotal = document.createElement('div');
+    projectTaskTotal.classList.add('tasks-amount');
+    projectBtn.appendChild(projectTaskTotal);
+    let totalTaskProject = 0;
+    for (let e = 0; e < tasksArray.length; e += 1) {
+      if (projectBtn.getAttribute('data') === tasksArray[e].project) {
+        totalTaskProject += 1;
+      }
+    }
+    projectTaskTotal.innerText = totalTaskProject;
+
+    projectBtn.addEventListener('click', () => {
+      const divToRemove = document.querySelectorAll('.task-div');
+      divToRemove.forEach((element) => element.remove());
+      for (let x = 0; x < tasksArray.length; x += 1) {
+        if (projectBtn.getAttribute('data') === tasksArray[x].project) {
+          const y = x + 1;
+          allTask(x, y);
+        }
+      }
+    });
+  }
+}
+
 // Function to show daily tasks
 function todayTask() {
   let month = todayMonth;
@@ -531,6 +577,7 @@ export {
   sevenDayTaskAmount,
   allTask,
   totalTasks,
+  addProject,
   todayTask,
   weekTask,
 };
