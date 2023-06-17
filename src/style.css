@@ -108,11 +108,7 @@ body {
 
 .side-bar>button:hover,
 .project-btn:hover {
-  background-color: rgb(208, 208, 183);
-}
-
-.project-btn:focus {
-  background-color: rgb(170, 255, 186);
+  background-color: rgb(208, 208, 183) !important;
 }
 
 .tasks-container {

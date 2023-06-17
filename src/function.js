@@ -800,6 +800,7 @@ function createNewTask() {
     }
     editTaskBackground.remove();
     tasksArray.push(newTask);
+    allTask(tasksArray.length - 1, tasksArray.length);
     totalTasks();
   });
 }
