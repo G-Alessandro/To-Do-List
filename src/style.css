@@ -105,7 +105,7 @@ body {
   background-color: rgb(124, 233, 255);
   border-radius: 50%;
 }
-/* Qui */
+
 .side-bar>button:hover,
 .project-btn:hover {
   background-color: rgb(208, 208, 183);
@@ -411,6 +411,8 @@ input[type=checkbox] {
 .detail-btn,
 .edit-btn,
 .remove-btn,
-.close-detail-btn {
+.close-detail-btn,
+.project-btn,
+.task-checkbox {
   cursor: pointer;
 }

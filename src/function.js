@@ -1,6 +1,6 @@
 import tasksArray from './tasks';
 import editIcon from './assets/icons/edit-icon.svg';
-import removeIcon from './assets/icons/remove-icon.svg';
+import removeIcon from './assets/icons/trash-can.svg';
 
 const body = document.getElementsByTagName('body')[0];
 
@@ -46,7 +46,7 @@ function removeTask() {
 
 // Function to assign dates to tasks
 function assignDate() {
-  for (let i = 0; i < tasksArray.length; i += 2) {
+  for (let i = 0; i < 10; i += 2) {
     tasksArray[i].day = todayDay + i;
     tasksArray[i + 1].day = todayDay + i;
     if (tasksArray[i].day.toString().length === 1) {
@@ -152,7 +152,7 @@ function priorityDivColor(priorityId, priority) {
   }
 }
 
-// Function to edit the details of the task
+// Function to edit the details of the task , taskId, titleId, priorityId, dateId
 function editTask(obj, taskId, titleId, priorityId, dateId) {
   const editTaskBackground = document.createElement('div');
   editTaskBackground.classList.add('edit-task-background');
@@ -168,6 +168,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
 
   const editTaskTitleText = document.createElement('textarea');
   editTaskTitleText.classList.add('edit-task-title-text');
+  editTaskTitleText.setAttribute('required', '');
   editTaskTitleText.setAttribute('rows', '1');
   editTaskTitleText.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskTitleText);
@@ -179,6 +180,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
 
   const editTaskDescriptionText = document.createElement('textarea');
   editTaskDescriptionText.classList.add('edit-task-description-text');
+  editTaskDescriptionText.setAttribute('required', '');
   editTaskDescriptionText.setAttribute('rows', '6');
   editTaskDescriptionText.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskDescriptionText);
@@ -209,6 +211,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
 
   const editTaskDate = document.createElement('input');
   editTaskDate.setAttribute('type', 'date');
+  editTaskDate.setAttribute('required', '');
   editTaskDate.classList.add('edit-task-date-input');
   editTimeContainer.appendChild(editTaskDate);
   editTaskDate.value = `${obj.year}-${obj.month}-${obj.day}`;
@@ -404,7 +407,6 @@ function seeDetailsTask(obj) {
 function allTask(objIndex, tasksQuantity) {
   const divToRemove = document.querySelectorAll('project-btn');
   divToRemove.forEach((element) => element.remove());
-  // addProject();
   for (let i = objIndex; i < tasksQuantity; i += 1) {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task-div');
@@ -451,7 +453,9 @@ function allTask(objIndex, tasksQuantity) {
     taskDate.classList.add('task-date');
     taskDate.setAttribute('id', `task-date-${i}`);
     taskDiv.appendChild(taskDate);
-    assignDate();
+    if (tasksArray[i].month === '' && tasksArray[i].day === '' && tasksArray[i].year === '') {
+      assignDate();
+    }
     taskDate.innerText = `${monthName(tasksArray[i].month)}-${tasksArray[i].day}-${tasksArray[i].year}`;
 
     const editBtn = document.createElement('button');
@@ -492,7 +496,6 @@ function allTask(objIndex, tasksQuantity) {
       totalTasks();
     });
   }
-  console.log('test');
 }
 
 // Function to add projects to the sidebar
@@ -500,8 +503,10 @@ function addProject() {
   const projectsArray = [];
   for (let i = 0; i < tasksArray.length; i += 1) {
     const projectValue = tasksArray[i].project;
-    if (projectsArray.includes(projectValue) === false) {
-      projectsArray.push(projectValue);
+    if (projectValue !== '') {
+      if (projectsArray.includes(projectValue) === false) {
+        projectsArray.push(projectValue);
+      }
     }
   }
   const projectsContainer = document.getElementsByClassName('projects-container')[0];
@@ -524,10 +529,18 @@ function addProject() {
     projectTaskTotal.innerText = totalTaskProject;
 
     projectBtn.addEventListener('click', () => {
-      // const btnNoClicked = document.querySelectorAll('project-btn');
-      // btnNoClicked.forEach((element) => element.style.backgroundColor = 'beige');
-      // btnNoClicked.style.backgroundColor = 'beige';
-      // projectBtn.style.backgroundColor = 'rgb(170, 255, 186)';
+      for (let e = 0; e < projectsArray.length; e += 1) {
+        const btnIdNoClicked = document.getElementById(`project-btn-${e}`);
+        const homeBtn = document.getElementsByClassName('home-btn')[0];
+        const todayBtn = document.getElementsByClassName('today-btn')[0];
+        const weekBtn = document.getElementsByClassName('week-btn')[0];
+        btnIdNoClicked.style.backgroundColor = 'beige';
+        homeBtn.style.backgroundColor = 'beige';
+        todayBtn.style.backgroundColor = 'beige';
+        weekBtn.style.backgroundColor = 'beige';
+      }
+      const projectBtnId = document.getElementById(`project-btn-${i}`);
+      projectBtnId.style.backgroundColor = 'rgb(170, 255, 186)';
       const divToRemove = document.querySelectorAll('.task-div');
       divToRemove.forEach((element) => element.remove());
       for (let x = 0; x < tasksArray.length; x += 1) {
@@ -583,6 +596,214 @@ function weekTask() {
   }
 }
 
+// Function to create new task
+function createNewTask() {
+  const newTask = {
+    title: '',
+    description: '',
+    priority: 'Low',
+    project: '',
+    day: '',
+    month: '',
+    year: '',
+  };
+
+  let month = todayMonth;
+  let day = todayDay;
+  if (month.toString().length === 1) {
+    month = `0${month}`;
+  }
+  if (day.toString().length === 1) {
+    day = `0${day}`;
+  }
+
+  newTask.day = day;
+  newTask.month = month;
+  newTask.year = todayYear;
+
+  const editTaskBackground = document.createElement('div');
+  editTaskBackground.classList.add('edit-task-background');
+  body.appendChild(editTaskBackground);
+
+  const editTaskContainer = document.createElement('div');
+  editTaskContainer.classList.add('edit-task-container');
+  editTaskBackground.appendChild(editTaskContainer);
+
+  const closeDetailBtn = document.createElement('button');
+  closeDetailBtn.classList.add('close-detail-btn');
+  editTaskContainer.appendChild(closeDetailBtn);
+  closeDetailBtn.innerText = 'X';
+  closeDetailBtn.addEventListener('click', () => {
+    editTaskContainer.remove();
+    editTaskBackground.remove();
+  });
+
+  const editTaskTitle = document.createElement('h3');
+  editTaskContainer.appendChild(editTaskTitle);
+  editTaskTitle.innerText = 'Title :';
+
+  const editTaskTitleText = document.createElement('textarea');
+  editTaskTitleText.classList.add('edit-task-title-text');
+  editTaskTitleText.setAttribute('required', '');
+  editTaskTitleText.setAttribute('rows', '1');
+  editTaskTitleText.setAttribute('cols', '60');
+  editTaskContainer.appendChild(editTaskTitleText);
+  editTaskTitleText.innerText = newTask.title;
+
+  const editTaskDescriptionTitle = document.createElement('h3');
+  editTaskContainer.appendChild(editTaskDescriptionTitle);
+  editTaskDescriptionTitle.innerText = 'Description :';
+
+  const editTaskDescriptionText = document.createElement('textarea');
+  editTaskDescriptionText.classList.add('edit-task-description-text');
+  editTaskDescriptionText.setAttribute('required', '');
+  editTaskDescriptionText.setAttribute('rows', '6');
+  editTaskDescriptionText.setAttribute('cols', '60');
+  editTaskContainer.appendChild(editTaskDescriptionText);
+  editTaskDescriptionText.innerText = newTask.description;
+
+  const editTaskProjectTitle = document.createElement('h3');
+  editTaskContainer.appendChild(editTaskProjectTitle);
+  editTaskProjectTitle.innerText = 'Project :';
+
+  const editTaskProject = document.createElement('textarea');
+  editTaskProject.classList.add('edit-task-title-text');
+  editTaskProject.setAttribute('rows', '1');
+  editTaskProject.setAttribute('cols', '60');
+  editTaskContainer.appendChild(editTaskProject);
+  editTaskProject.innerText = newTask.project;
+
+  const editTimePriorityContainer = document.createElement('div');
+  editTimePriorityContainer.classList.add('edit-time-priority-container');
+  editTaskContainer.appendChild(editTimePriorityContainer);
+
+  const editTimeContainer = document.createElement('div');
+  editTimeContainer.classList.add('edit-time-container');
+  editTimePriorityContainer.appendChild(editTimeContainer);
+
+  const editTaskDateTitle = document.createElement('h3');
+  editTimeContainer.appendChild(editTaskDateTitle);
+  editTaskDateTitle.innerText = 'Duo Date :';
+
+  const editTaskDate = document.createElement('input');
+  editTaskDate.setAttribute('type', 'date');
+  editTaskDate.setAttribute('required', '');
+  editTaskDate.classList.add('edit-task-date-input');
+  editTimeContainer.appendChild(editTaskDate);
+  editTaskDate.value = `${newTask.year}-${newTask.month}-${newTask.day}`;
+
+  const editPriorityContainer = document.createElement('div');
+  editPriorityContainer.classList.add('edit-priority-container');
+  editTimePriorityContainer.appendChild(editPriorityContainer);
+
+  const editTaskPriorityTitle = document.createElement('h3');
+  editPriorityContainer.appendChild(editTaskPriorityTitle);
+  editTaskPriorityTitle.innerText = 'Priority :';
+
+  const editPriorityBtnContainer = document.createElement('div');
+  editPriorityBtnContainer.classList.add('edit-priority-btn-container');
+  editPriorityContainer.appendChild(editPriorityBtnContainer);
+
+  const editPriorityBtnLow = document.createElement('button');
+  editPriorityBtnLow.classList.add('edit-priority-btn-low');
+  editPriorityBtnContainer.appendChild(editPriorityBtnLow);
+  editPriorityBtnLow.innerText = 'Low';
+
+  const editPriorityBtnMedium = document.createElement('button');
+  editPriorityBtnMedium.classList.add('edit-priority-btn-medium');
+  editPriorityBtnContainer.appendChild(editPriorityBtnMedium);
+  editPriorityBtnMedium.innerText = 'Medium';
+
+  const editPriorityBtnHigh = document.createElement('button');
+  editPriorityBtnHigh.classList.add('edit-priority-btn-high');
+  editPriorityBtnContainer.appendChild(editPriorityBtnHigh);
+  editPriorityBtnHigh.innerText = 'High';
+
+  let priorityChoice = '';
+
+  if (newTask.priority === 'Low') {
+    editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    priorityChoice = 'Low';
+  }
+  if (newTask.priority === 'Medium') {
+    editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    priorityChoice = 'Medium';
+  }
+  if (newTask.priority === 'High') {
+    editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    priorityChoice = 'High';
+  }
+
+  editPriorityBtnLow.addEventListener('click', () => {
+    if (editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle') === false) {
+      editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    }
+    if (editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle') === true) {
+      editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    }
+    if (editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle') === true) {
+      editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    }
+    priorityChoice = 'Low';
+  });
+
+  editPriorityBtnMedium.addEventListener('click', () => {
+    if (editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle') === false) {
+      editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    }
+    if (editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle') === true) {
+      editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    }
+    if (editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle') === true) {
+      editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    }
+    priorityChoice = 'Medium';
+  });
+
+  editPriorityBtnHigh.addEventListener('click', () => {
+    if (editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle') === false) {
+      editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+    }
+    if (editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle') === true) {
+      editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+    }
+    if (editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle') === true) {
+      editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+    }
+    priorityChoice = 'High';
+  });
+
+  // Confirm button
+  const editConfirmBtn = document.createElement('button');
+  editConfirmBtn.classList.add('edit-confirm-btn');
+  editTaskContainer.appendChild(editConfirmBtn);
+  editConfirmBtn.innerText = 'Confirm Edit';
+  editConfirmBtn.addEventListener('click', () => {
+    newTask.title = editTaskTitleText.value;
+    newTask.description = editTaskDescriptionText.value;
+    newTask.project = editTaskProject.value;
+    newTask.day = editTaskDate.value.slice(8, 10);
+    newTask.month = editTaskDate.value.slice(5, 7);
+    newTask.year = editTaskDate.value.slice(0, 4);
+    newTask.priority = priorityChoice;
+    if (priorityChoice === 'Low') {
+      editPriorityBtnLow.classList.toggle('edit-priority-btn-low-toggle');
+      priorityChoice = 'Low';
+    }
+    if (priorityChoice === 'Medium') {
+      editPriorityBtnMedium.classList.toggle('edit-priority-btn-medium-toggle');
+      priorityChoice = 'Medium';
+    }
+    if (priorityChoice === 'High') {
+      editPriorityBtnHigh.classList.toggle('edit-priority-btn-high-toggle');
+      priorityChoice = 'High';
+    }
+    editTaskBackground.remove();
+    tasksArray.push(newTask);
+    totalTasks();
+  });
+}
+
 export {
   btnColorChange,
   removeTask,
@@ -595,4 +816,5 @@ export {
   addProject,
   todayTask,
   weekTask,
+  createNewTask,
 };

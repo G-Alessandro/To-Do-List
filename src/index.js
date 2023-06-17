@@ -12,6 +12,7 @@ import {
   addProject,
   todayTask,
   weekTask,
+  createNewTask,
 } from './function';
 
 const body = document.getElementsByTagName('body')[0];
@@ -65,11 +66,6 @@ const projectsTitle = document.createElement('div');
 projectsTitle.classList.add('projects-title');
 projectTitleContainer.appendChild(projectsTitle);
 projectsTitle.innerText = 'Projects';
-// Add Project Button
-const addProjectBtn = document.createElement('button');
-addProjectBtn.classList.add('add-project-btn');
-projectTitleContainer.appendChild(addProjectBtn);
-addProjectBtn.innerText = 'Add Project';
 // Projects Container
 const projectsContainer = document.createElement('div');
 projectsContainer.classList.add('projects-container');
@@ -80,6 +76,10 @@ btnColorChange('home-btn', 'today-btn', 'week-btn');
 allTask(0, tasksArray.length);
 addProject();
 totalTasks();
+
+addTaskBtn.addEventListener('click', () => {
+  createNewTask();
+});
 
 allTaskBtn.addEventListener('click', () => {
   btnColorChange('home-btn', 'today-btn', 'week-btn');
