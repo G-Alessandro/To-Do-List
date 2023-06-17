@@ -21,6 +21,16 @@ const todayDay = todayDate.getDate();
 const todayMonth = todayDate.getMonth() + 1;
 const todayYear = todayDate.getFullYear();
 
+// Function to change the color of the buttons
+function btnColorChange(green, normal1, normal2) {
+  const btn1 = document.getElementsByClassName(green)[0];
+  const btn2 = document.getElementsByClassName(normal1)[0];
+  const btn3 = document.getElementsByClassName(normal2)[0];
+  btn1.style.backgroundColor = 'rgb(170, 255, 186)';
+  btn2.style.backgroundColor = 'beige';
+  btn3.style.backgroundColor = 'beige';
+}
+
 // Function to make the first letter of a string uppercase
 function uppercaseString(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
@@ -514,6 +524,10 @@ function addProject() {
     projectTaskTotal.innerText = totalTaskProject;
 
     projectBtn.addEventListener('click', () => {
+      // const btnNoClicked = document.querySelectorAll('project-btn');
+      // btnNoClicked.forEach((element) => element.style.backgroundColor = 'beige');
+      // btnNoClicked.style.backgroundColor = 'beige';
+      // projectBtn.style.backgroundColor = 'rgb(170, 255, 186)';
       const divToRemove = document.querySelectorAll('.task-div');
       divToRemove.forEach((element) => element.remove());
       for (let x = 0; x < tasksArray.length; x += 1) {
@@ -570,6 +584,7 @@ function weekTask() {
 }
 
 export {
+  btnColorChange,
   removeTask,
   tasksContainer,
   allTaskAmount,

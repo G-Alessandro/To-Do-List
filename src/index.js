@@ -1,6 +1,7 @@
 import './style.css';
 import tasksArray from './tasks';
 import {
+  btnColorChange,
   removeTask,
   tasksContainer,
   allTaskAmount,
@@ -75,11 +76,13 @@ projectsContainer.classList.add('projects-container');
 sideBar.appendChild(projectsContainer);
 body.appendChild(tasksContainer);
 
+btnColorChange('home-btn', 'today-btn', 'week-btn');
 allTask(0, tasksArray.length);
 addProject();
 totalTasks();
 
 allTaskBtn.addEventListener('click', () => {
+  btnColorChange('home-btn', 'today-btn', 'week-btn');
   removeTask();
   addProject();
   allTask(0, tasksArray.length);
@@ -87,6 +90,7 @@ allTaskBtn.addEventListener('click', () => {
 });
 
 todayBtn.addEventListener('click', () => {
+  btnColorChange('today-btn', 'home-btn', 'week-btn');
   removeTask();
   addProject();
   todayTask();
@@ -94,6 +98,7 @@ todayBtn.addEventListener('click', () => {
 });
 
 weekBtn.addEventListener('click', () => {
+  btnColorChange('week-btn', 'home-btn', 'today-btn');
   removeTask();
   addProject();
   weekTask();

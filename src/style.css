@@ -105,13 +105,13 @@ body {
   background-color: rgb(124, 233, 255);
   border-radius: 50%;
 }
-
+/* Qui */
 .side-bar>button:hover,
 .project-btn:hover {
   background-color: rgb(208, 208, 183);
 }
 
-.side-bar>button:focus {
+.project-btn:focus {
   background-color: rgb(170, 255, 186);
 }
 
@@ -124,24 +124,24 @@ body {
   overflow-y: scroll;
 }
 
-/* width */
+/*Scroll bar width */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
+/*Scroll bar Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgb(71, 224, 255); 
   border-radius: 10px;
 }
  
-/* Handle */
+/*Scroll bar Handle */
 ::-webkit-scrollbar-thumb {
   background: rgb(71, 224, 255); 
   border-radius: 10px;
 }
 
-/* Handle on hover */
+/*Scroll bar Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(71, 224, 255); 
 }
