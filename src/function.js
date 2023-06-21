@@ -4,9 +4,6 @@ import removeIcon from './assets/icons/trash-can.svg';
 
 localStorage.setItem('tasksArray', JSON.stringify(tasksArrayStart));
 const tasksArray = JSON.parse(localStorage.getItem('tasksArray'));
-// if (localStorage.getItem('tasksArray') === null) {
-//   tasksArray = tasksArrayStart;
-// }
 
 const body = document.getElementsByTagName('body')[0];
 
@@ -140,22 +137,24 @@ function totalTasks() {
       weekTasksTotal += 1;
     }
   }
-  // const projectBtnTotal = document.getElementsByClassName('project-btn');
-  // for (let e = 0; e < projectBtnTotal.length; e += 1) {
-  //   const projectBtnId = document.getElementById(`project-btn-${e}`);
-  //   const taskAmountDiv = document.getElementsByClassName('tasks-amount')[e];
-  //   let taskAmount = 0;
-  //   for (let i = 0; i < tasksArray.length; i += 1) {
-  //     const objProject = tasksArray[i].project;
-  //     if (projectBtnId.getAttribute('data') === objProject) {
-  //       taskAmount += 1;
-  //     }
-  //   }
-  //   if (taskAmount === 0) {
-  //     projectBtnId.remove();
-  //   }
-  //   taskAmountDiv.innerText = taskAmount;
-  // }
+  // Project total tasks
+  const totalProject = document.getElementsByClassName('project-btn');
+  for (let e = 0; e < totalProject.length; e += 1) {
+    const projectId = document.getElementsByClassName('project-btn')[e];
+    const taskData = projectId.getAttribute('data');
+    const taskAmount = document.getElementsByClassName('tasks-amount')[e + 3];
+    let projectTaskTotal = 0;
+    for (let f = 0; f < tasksArray.length; f += 1) {
+      if (taskData === tasksArray[f].project) {
+        projectTaskTotal += 1;
+      }
+    }
+    if (projectTaskTotal === 0) {
+      projectId.remove();
+    }
+    taskAmount.innerText = projectTaskTotal;
+  }
+
   todayTaskAmount.innerText = todayTasksTotal;
   sevenDayTaskAmount.innerText = weekTasksTotal;
 }
@@ -830,6 +829,9 @@ function createNewTask() {
     editTaskBackground.remove();
     tasksArray.push(newTask);
     allTask(tasksArray.length - 1, tasksArray.length);
+    const btnToRemove = document.querySelectorAll('.project-btn');
+    btnToRemove.forEach((element) => element.remove());
+    addProject();
     totalTasks();
     localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
   });

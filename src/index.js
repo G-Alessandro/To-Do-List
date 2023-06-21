@@ -72,9 +72,6 @@ projectsContainer.classList.add('projects-container');
 sideBar.appendChild(projectsContainer);
 body.appendChild(tasksContainer);
 
-// localStorage.setItem('tasksArray', JSON.stringify(tasksArrayStart));
-// const tasksArray = JSON.parse(localStorage.getItem('tasksArray'));
-
 btnColorChange('home-btn', 'today-btn', 'week-btn');
 allTask(0, tasksArray.length);
 addProject();
