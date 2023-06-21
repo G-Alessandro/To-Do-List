@@ -1,4 +1,4 @@
-const tasksArray = [
+const tasksArrayStart = [
   {
     title: 'Wake up',
     description: 'get out of bed and brush your teeth and face',
@@ -91,4 +91,4 @@ const tasksArray = [
   },
 ];
 
-export default tasksArray;
+export default tasksArrayStart;

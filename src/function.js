@@ -1,6 +1,12 @@
-import tasksArray from './tasks';
+import tasksArrayStart from './tasks';
 import editIcon from './assets/icons/edit-icon.svg';
 import removeIcon from './assets/icons/trash-can.svg';
+
+localStorage.setItem('tasksArray', JSON.stringify(tasksArrayStart));
+const tasksArray = JSON.parse(localStorage.getItem('tasksArray'));
+// if (localStorage.getItem('tasksArray') === null) {
+//   tasksArray = tasksArrayStart;
+// }
 
 const body = document.getElementsByTagName('body')[0];
 
@@ -21,7 +27,7 @@ const todayDay = todayDate.getDate();
 const todayMonth = todayDate.getMonth() + 1;
 const todayYear = todayDate.getFullYear();
 
-// Function to change the color of the buttons
+// Function to change the color of the sidebar buttons
 function btnColorChange(green, normal1, normal2) {
   const btn1 = document.getElementsByClassName(green)[0];
   const btn2 = document.getElementsByClassName(normal1)[0];
@@ -134,6 +140,22 @@ function totalTasks() {
       weekTasksTotal += 1;
     }
   }
+  // const projectBtnTotal = document.getElementsByClassName('project-btn');
+  // for (let e = 0; e < projectBtnTotal.length; e += 1) {
+  //   const projectBtnId = document.getElementById(`project-btn-${e}`);
+  //   const taskAmountDiv = document.getElementsByClassName('tasks-amount')[e];
+  //   let taskAmount = 0;
+  //   for (let i = 0; i < tasksArray.length; i += 1) {
+  //     const objProject = tasksArray[i].project;
+  //     if (projectBtnId.getAttribute('data') === objProject) {
+  //       taskAmount += 1;
+  //     }
+  //   }
+  //   if (taskAmount === 0) {
+  //     projectBtnId.remove();
+  //   }
+  //   taskAmountDiv.innerText = taskAmount;
+  // }
   todayTaskAmount.innerText = todayTasksTotal;
   sevenDayTaskAmount.innerText = weekTasksTotal;
 }
@@ -319,6 +341,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
     taskId.setAttribute('data', `${obj.title}`);
     priorityDivColor(priorityId, priorityChoice);
     totalTasks();
+    localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
   });
 }
 
@@ -444,9 +467,15 @@ function allTask(objIndex, tasksQuantity) {
     detailsBtn.classList.add('detail-btn');
     taskDiv.appendChild(detailsBtn);
     detailsBtn.innerText = 'Details';
-
+    
     detailsBtn.addEventListener('click', () => {
-      seeDetailsTask(tasksArray[i]);
+      // seeDetailsTask(tasksArray[i]);
+      const taskId = document.getElementById(`task-div-${i}`);
+      const taskData = taskId.getAttribute('data');
+      const index = tasksArray.findIndex((array) => array.title === taskData);
+      console.log(taskData);
+      console.log(tasksArray.findIndex((array) => array.title === taskData));
+      seeDetailsTask(tasksArray[index]);
     });
 
     const taskDate = document.createElement('div');
@@ -494,6 +523,7 @@ function allTask(objIndex, tasksQuantity) {
         }
       }
       totalTasks();
+      localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
     });
   }
 }
@@ -802,6 +832,7 @@ function createNewTask() {
     tasksArray.push(newTask);
     allTask(tasksArray.length - 1, tasksArray.length);
     totalTasks();
+    localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
   });
 }
 
@@ -818,4 +849,5 @@ export {
   todayTask,
   weekTask,
   createNewTask,
+  tasksArray,
 };

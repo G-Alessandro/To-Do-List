@@ -1,5 +1,4 @@
 import './style.css';
-import tasksArray from './tasks';
 import {
   btnColorChange,
   removeTask,
@@ -13,6 +12,7 @@ import {
   todayTask,
   weekTask,
   createNewTask,
+  tasksArray,
 } from './function';
 
 const body = document.getElementsByTagName('body')[0];
@@ -71,6 +71,9 @@ const projectsContainer = document.createElement('div');
 projectsContainer.classList.add('projects-container');
 sideBar.appendChild(projectsContainer);
 body.appendChild(tasksContainer);
+
+// localStorage.setItem('tasksArray', JSON.stringify(tasksArrayStart));
+// const tasksArray = JSON.parse(localStorage.getItem('tasksArray'));
 
 btnColorChange('home-btn', 'today-btn', 'week-btn');
 allTask(0, tasksArray.length);

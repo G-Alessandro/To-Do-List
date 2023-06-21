@@ -33,13 +33,17 @@ body {
   border-right: 4px solid rgb(71, 224, 255);
 }
 
-.tasks-title-container,
-.project-title-container {
+.project-title-container,
+.tasks-title-container {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
   align-items: center;
-  margin: 1rem 1.5rem 2rem 1.5rem;
+  margin: 1rem 1.5rem 0rem 1.5rem;
   padding-bottom: 1rem;
+}
+
+.tasks-title-container {
+  margin: 1rem 1.5rem 2rem 1.5rem;
   border-bottom: .1rem solid black;
 }
 
@@ -80,7 +84,7 @@ body {
 .projects-container {
   display: flex;
   flex-direction: column;
-  height: 10rem;
+  height: 12rem;
   align-items: center;
   overflow-y: scroll;
   margin: 0 1rem;
