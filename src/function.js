@@ -467,14 +467,11 @@ function allTask(objIndex, tasksQuantity) {
     detailsBtn.classList.add('detail-btn');
     taskDiv.appendChild(detailsBtn);
     detailsBtn.innerText = 'Details';
-    
+
     detailsBtn.addEventListener('click', () => {
-      // seeDetailsTask(tasksArray[i]);
       const taskId = document.getElementById(`task-div-${i}`);
       const taskData = taskId.getAttribute('data');
       const index = tasksArray.findIndex((array) => array.title === taskData);
-      console.log(taskData);
-      console.log(tasksArray.findIndex((array) => array.title === taskData));
       seeDetailsTask(tasksArray[index]);
     });
 
@@ -500,7 +497,9 @@ function allTask(objIndex, tasksQuantity) {
     const taskTitleId = document.getElementById(`task-title-${i}`);
     const taskDateId = document.getElementById(`task-date-${i}`);
     editBtn.addEventListener('click', () => {
-      editTask(tasksArray[i], taskId, taskTitleId, taskPriorityId, taskDateId);
+      const taskData = taskId.getAttribute('data');
+      const index = tasksArray.findIndex((array) => array.title === taskData);
+      editTask(tasksArray[index], taskId, taskTitleId, taskPriorityId, taskDateId);
     });
 
     const removeBtn = document.createElement('button');
