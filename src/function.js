@@ -36,7 +36,11 @@ function btnColorChange(green, normal1, normal2) {
 
 // Function to make the first letter of a string uppercase
 function uppercaseString(string) {
-  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+  let stringToUpperCase = string;
+  if (string !== '') {
+    stringToUpperCase = string[0].toUpperCase() + string.slice(1).toLowerCase();
+  }
+  return stringToUpperCase;
 }
 
 // Function to remove tasks from taskContainer
@@ -179,9 +183,12 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
   editTaskBackground.classList.add('edit-task-background');
   body.appendChild(editTaskBackground);
 
+  const form = document.createElement('form');
+  editTaskBackground.appendChild(form);
+
   const editTaskContainer = document.createElement('div');
   editTaskContainer.classList.add('edit-task-container');
-  editTaskBackground.appendChild(editTaskContainer);
+  form.appendChild(editTaskContainer);
 
   const editTaskTitle = document.createElement('h3');
   editTaskContainer.appendChild(editTaskTitle);
@@ -189,9 +196,8 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
 
   const editTaskTitleText = document.createElement('textarea');
   editTaskTitleText.classList.add('edit-task-title-text');
-  editTaskTitleText.setAttribute('required', '');
   editTaskTitleText.setAttribute('rows', '1');
-  editTaskTitleText.setAttribute('cols', '60');
+  editTaskTitleText.setAttribute('required', '');
   editTaskContainer.appendChild(editTaskTitleText);
   editTaskTitleText.innerText = uppercaseString(obj.title);
 
@@ -201,9 +207,7 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
 
   const editTaskDescriptionText = document.createElement('textarea');
   editTaskDescriptionText.classList.add('edit-task-description-text');
-  editTaskDescriptionText.setAttribute('required', '');
   editTaskDescriptionText.setAttribute('rows', '6');
-  editTaskDescriptionText.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskDescriptionText);
   editTaskDescriptionText.innerText = uppercaseString(obj.description);
 
@@ -214,7 +218,6 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
   const editTaskProject = document.createElement('textarea');
   editTaskProject.classList.add('edit-task-title-text');
   editTaskProject.setAttribute('rows', '1');
-  editTaskProject.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskProject);
   editTaskProject.innerText = uppercaseString(obj.project);
 
@@ -250,16 +253,19 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
   editPriorityContainer.appendChild(editPriorityBtnContainer);
 
   const editPriorityBtnLow = document.createElement('button');
+  editPriorityBtnLow.setAttribute('type', 'button');
   editPriorityBtnLow.classList.add('edit-priority-btn-low');
   editPriorityBtnContainer.appendChild(editPriorityBtnLow);
   editPriorityBtnLow.innerText = 'Low';
 
   const editPriorityBtnMedium = document.createElement('button');
+  editPriorityBtnMedium.setAttribute('type', 'button');
   editPriorityBtnMedium.classList.add('edit-priority-btn-medium');
   editPriorityBtnContainer.appendChild(editPriorityBtnMedium);
   editPriorityBtnMedium.innerText = 'Medium';
 
   const editPriorityBtnHigh = document.createElement('button');
+  editPriorityBtnHigh.setAttribute('type', 'button');
   editPriorityBtnHigh.classList.add('edit-priority-btn-high');
   editPriorityBtnContainer.appendChild(editPriorityBtnHigh);
   editPriorityBtnHigh.innerText = 'High';
@@ -320,10 +326,11 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
 
   // Confirm edit button
   const editConfirmBtn = document.createElement('button');
+  editConfirmBtn.setAttribute('type', 'submit');
   editConfirmBtn.classList.add('edit-confirm-btn');
   editTaskContainer.appendChild(editConfirmBtn);
   editConfirmBtn.innerText = 'Confirm Edit';
-  editConfirmBtn.addEventListener('click', () => {
+  form.addEventListener('submit', () => {
     const object = obj;
     const idTitle = titleId;
     const date = dateId;
@@ -339,6 +346,8 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
     idTitle.innerText = obj.title;
     taskId.setAttribute('data', `${obj.title}`);
     priorityDivColor(priorityId, priorityChoice);
+    // const btnToRemove = document.querySelectorAll('.project-btn');
+    // btnToRemove.forEach((element) => element.remove());
     totalTasks();
     localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
   });
@@ -625,6 +634,7 @@ function weekTask() {
 }
 
 // Function to create new task
+// I reused some of the code from the edit button function
 function createNewTask() {
   const newTask = {
     title: '',
@@ -653,9 +663,12 @@ function createNewTask() {
   editTaskBackground.classList.add('edit-task-background');
   body.appendChild(editTaskBackground);
 
+  const form = document.createElement('form');
+  editTaskBackground.appendChild(form);
+
   const editTaskContainer = document.createElement('div');
   editTaskContainer.classList.add('edit-task-container');
-  editTaskBackground.appendChild(editTaskContainer);
+  form.appendChild(editTaskContainer);
 
   const closeDetailBtn = document.createElement('button');
   closeDetailBtn.classList.add('close-detail-btn');
@@ -672,9 +685,8 @@ function createNewTask() {
 
   const editTaskTitleText = document.createElement('textarea');
   editTaskTitleText.classList.add('edit-task-title-text');
-  editTaskTitleText.setAttribute('required', '');
   editTaskTitleText.setAttribute('rows', '1');
-  editTaskTitleText.setAttribute('cols', '60');
+  editTaskTitleText.setAttribute('required', '');
   editTaskContainer.appendChild(editTaskTitleText);
   editTaskTitleText.innerText = newTask.title;
 
@@ -684,9 +696,7 @@ function createNewTask() {
 
   const editTaskDescriptionText = document.createElement('textarea');
   editTaskDescriptionText.classList.add('edit-task-description-text');
-  editTaskDescriptionText.setAttribute('required', '');
   editTaskDescriptionText.setAttribute('rows', '6');
-  editTaskDescriptionText.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskDescriptionText);
   editTaskDescriptionText.innerText = newTask.description;
 
@@ -697,7 +707,6 @@ function createNewTask() {
   const editTaskProject = document.createElement('textarea');
   editTaskProject.classList.add('edit-task-title-text');
   editTaskProject.setAttribute('rows', '1');
-  editTaskProject.setAttribute('cols', '60');
   editTaskContainer.appendChild(editTaskProject);
   editTaskProject.innerText = newTask.project;
 
@@ -733,16 +742,19 @@ function createNewTask() {
   editPriorityContainer.appendChild(editPriorityBtnContainer);
 
   const editPriorityBtnLow = document.createElement('button');
+  editPriorityBtnLow.setAttribute('type', 'button');
   editPriorityBtnLow.classList.add('edit-priority-btn-low');
   editPriorityBtnContainer.appendChild(editPriorityBtnLow);
   editPriorityBtnLow.innerText = 'Low';
 
   const editPriorityBtnMedium = document.createElement('button');
+  editPriorityBtnMedium.setAttribute('type', 'button');
   editPriorityBtnMedium.classList.add('edit-priority-btn-medium');
   editPriorityBtnContainer.appendChild(editPriorityBtnMedium);
   editPriorityBtnMedium.innerText = 'Medium';
 
   const editPriorityBtnHigh = document.createElement('button');
+  editPriorityBtnHigh.setAttribute('type', 'button');
   editPriorityBtnHigh.classList.add('edit-priority-btn-high');
   editPriorityBtnContainer.appendChild(editPriorityBtnHigh);
   editPriorityBtnHigh.innerText = 'High';
@@ -803,10 +815,11 @@ function createNewTask() {
 
   // Confirm button
   const editConfirmBtn = document.createElement('button');
+  editConfirmBtn.setAttribute('type', 'submit');
   editConfirmBtn.classList.add('edit-confirm-btn');
   editTaskContainer.appendChild(editConfirmBtn);
-  editConfirmBtn.innerText = 'Confirm Edit';
-  editConfirmBtn.addEventListener('click', () => {
+  editConfirmBtn.innerText = 'Confirm';
+  form.addEventListener('submit', () => {
     newTask.title = editTaskTitleText.value;
     newTask.description = editTaskDescriptionText.value;
     newTask.project = editTaskProject.value;
