@@ -304,6 +304,17 @@ input[type=checkbox] {
   margin-bottom: .5rem;
 }
 
+.edit-task-project-title-container {
+  display: flex;
+  margin-top: 1rem;
+  gap: .5rem;
+}
+
+.edit-task-project-title-container>div {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
 .edit-task-date-input {
   height: 2rem;
   font-size: 1.2rem;

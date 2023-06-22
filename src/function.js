@@ -211,15 +211,18 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
   editTaskContainer.appendChild(editTaskDescriptionText);
   editTaskDescriptionText.innerText = uppercaseString(obj.description);
 
-  const editTaskProjectTitle = document.createElement('h3');
-  editTaskContainer.appendChild(editTaskProjectTitle);
-  editTaskProjectTitle.innerText = 'Project :';
+  // Commented out to replace it with a div until i find a solution to add event listener
+  //  to the new project button
 
-  const editTaskProject = document.createElement('textarea');
-  editTaskProject.classList.add('edit-task-title-text');
-  editTaskProject.setAttribute('rows', '1');
-  editTaskContainer.appendChild(editTaskProject);
-  editTaskProject.innerText = uppercaseString(obj.project);
+  // const editTaskProjectTitle = document.createElement('h3');
+  // editTaskContainer.appendChild(editTaskProjectTitle);
+  // editTaskProjectTitle.innerText = 'Project :';
+
+  // const editTaskProject = document.createElement('textarea');
+  // editTaskProject.classList.add('edit-task-title-text');
+  // editTaskProject.setAttribute('rows', '1');
+  // editTaskContainer.appendChild(editTaskProject);
+  // editTaskProject.innerText = uppercaseString(obj.project);
 
   const editTimePriorityContainer = document.createElement('div');
   editTimePriorityContainer.classList.add('edit-time-priority-container');
@@ -324,6 +327,20 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
     priorityChoice = 'High';
   });
 
+  // Div added
+  const editTaskProjectTitleContainer = document.createElement('div');
+  editTaskProjectTitleContainer.classList.add('edit-task-project-title-container');
+  editTaskContainer.appendChild(editTaskProjectTitleContainer);
+
+  const editTaskProjectTitle = document.createElement('h3');
+  editTaskProjectTitleContainer.appendChild(editTaskProjectTitle);
+  editTaskProjectTitle.innerText = 'Project :';
+
+  const editTaskProject = document.createElement('div');
+  editTaskProject.classList.add('edit-task-project-text');
+  editTaskProjectTitleContainer.appendChild(editTaskProject);
+  editTaskProject.innerText = uppercaseString(obj.project);
+
   // Confirm edit button
   const editConfirmBtn = document.createElement('button');
   editConfirmBtn.setAttribute('type', 'submit');
@@ -331,12 +348,45 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
   editTaskContainer.appendChild(editConfirmBtn);
   editConfirmBtn.innerText = 'Confirm Edit';
   form.addEventListener('submit', () => {
+    // Loop to see if a project button is missing in case the name has been changed
+    // const totalProject = document.getElementsByClassName('project-btn');
+    // const projectTextArray = [];
+    // for (let i = 0; i < totalProject.length; i += 1) {
+    //   const projectId = document.getElementsByClassName('project-btn')[i];
+    //   const projectText = projectId.innerText;
+    //   projectTextArray.push(projectText);
+    // }
+    // if (projectTextArray.includes(editTaskProject.value) === false) {
+    //   const projectContainer = document.getElementsByClassName('projects-container')[0];
+    //   const projectBtn = document.createElement('button');
+    //   projectContainer.appendChild(projectBtn);
+    //   projectBtn.classList.add('project-btn');
+    //   projectBtn.setAttribute('id', `project-btn-${totalProject.length + 1}`);
+    //   projectBtn.setAttribute('data', `${editTaskProject.value}`);
+    //   projectBtn.innerText = uppercaseString(editTaskProject.value);
+    //   const projectTaskTotal = document.createElement('div');
+    //   projectTaskTotal.classList.add('tasks-amount');
+    //   projectBtn.appendChild(projectTaskTotal);
+    //   let totalTaskProject = 0;
+    //   for (let e = 0; e < tasksArray.length; e += 1) {
+    //     if (projectBtn.getAttribute('data') === tasksArray[e].project) {
+    //       totalTaskProject += 1;
+    //     }
+    //   }
+    //   projectTaskTotal.innerText = totalTaskProject;
+    //   projectBtn.addEventListener('click', () => {
+
+    //   });
+    // }
+
     const object = obj;
     const idTitle = titleId;
     const date = dateId;
     object.title = editTaskTitleText.value;
     object.description = editTaskDescriptionText.value;
-    object.project = editTaskProject.value;
+    // Commented out to replace it with a div until i find a solution to add event listener
+    // to the new project button
+    // object.project = editTaskProject.value;
     object.day = editTaskDate.value.slice(8, 10);
     object.month = editTaskDate.value.slice(5, 7);
     object.year = editTaskDate.value.slice(0, 4);
@@ -346,8 +396,6 @@ function editTask(obj, taskId, titleId, priorityId, dateId) {
     idTitle.innerText = obj.title;
     taskId.setAttribute('data', `${obj.title}`);
     priorityDivColor(priorityId, priorityChoice);
-    // const btnToRemove = document.querySelectorAll('.project-btn');
-    // btnToRemove.forEach((element) => element.remove());
     totalTasks();
     localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
   });
