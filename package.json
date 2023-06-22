@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "update": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [],
   "author": "",
