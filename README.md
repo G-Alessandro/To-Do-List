@@ -11,6 +11,7 @@
 </ul>
 
 <h3>Icons image credit:</H3>
-
-<a href="https://pictogrammers.com/library/mdi/icon/text-box-edit-outline/">edit-icon.svg</a>
-<a href="https://pictogrammers.com/library/mdi/icon/trash-can-outline//">trash-can.svg</a>
+<ul>
+<li><a href="https://pictogrammers.com/library/mdi/icon/text-box-edit-outline/">edit-icon.svg</a></li>
+<li><a href="https://pictogrammers.com/library/mdi/icon/trash-can-outline//">trash-can.svg</a></li>
+</ul>
